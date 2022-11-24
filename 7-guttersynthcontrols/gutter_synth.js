@@ -1,5 +1,5 @@
 
-console.clear();
+//console.clear();
 // use compressor here for dynamics
 // https://riptutorial.com/web-audio
 
@@ -164,7 +164,7 @@ class GutterOsc
     {
       this.filters[i] = new Biquad(); 
       let randomFreq = Math.random() * Math.random() * Math.random() * 2000 + 45;
-      console.log(randomFreq);
+      //console.log(randomFreq);
       this.filters[i].setFreq(randomFreq);
       this.filters[i].setQ(10);
       this.filters[i].calcCoeffs();
@@ -347,7 +347,7 @@ var EnvelopeGenerator = (function(context) {
   };
 
   EnvelopeGenerator.prototype.trigger = function() {
-    console.log("triggered!!");
+    // console.log("triggered!!");
     now = context.currentTime;
     this.param.cancelScheduledValues(now);
     this.param.setValueAtTime(0, now);
@@ -496,7 +496,7 @@ randomiseButton.onmousedown = function()
   {
     gutterOscs[i].randomiseFilters();
   }
-  console.log("randomising filters"); 
+  //console.log("randomising filters"); 
 }
 //envButton.onmouseup = function() { console.log("released"); }
 
@@ -507,7 +507,7 @@ randomiseLowButton.onmousedown = function()
   {
     gutterOscs[i].randomiseFiltersLow();
   }
-  console.log("randomising filters low"); 
+  //console.log("randomising filters low"); 
 }
 
 const minorButton = document.querySelector(".minor");
@@ -519,7 +519,7 @@ minorButton.onmousedown = function()
     let note = minorScale[i] + 24;
     gutterOscs[i].minorFilters(note);
   }
-  console.log("minor filters"); 
+  //console.log("minor filters"); 
 }
 
 
@@ -555,7 +555,7 @@ for (let i=0; i<8; i++)
   modSliders[i] = document.querySelector(".mod-slider"+(i+1));
   modSliders[i].addEventListener('input', function() 
   {
-    gutterOscs[i].setMod((this.value * 5.0));
+    gutterOscs[i].setMod((this.value * 1.0));
   }, "false");
   modSliders[i].value = 0.02
 
@@ -571,14 +571,14 @@ for (let i=0; i<8; i++)
   {
     gutterOscs[i].setQ(((this.value * this.value) * 200.0) + 0.01);
   }, "false");
-  resSliders[i].value = 0.5
+  resSliders[i].value = 0.3
 
   randButtons[i] = document.querySelector(".randomise"+(i+1));
   randButtons[i].onmousedown = function() 
   {
       gutterOscs[i].randomiseFilters();
   }
-  randLowButtons[i] = document.querySelector(".randomise"+(i+1)+"-low");
+  randLowButtons[i] = document.querySelector(".randomise-low"+(i+1));
   randLowButtons[i].onmousedown = function() 
   {
       gutterOscs[i].randomiseFiltersLow()
@@ -623,7 +623,7 @@ masterModSlider.addEventListener('input', function()
 {
   for (let i=0; i<8; i++)
   {
-    gutterOscs[i].setMod((this.value) * 5.0);
+    gutterOscs[i].setMod((this.value) * 1.0);
     modSliders[i].value = this.value;
   }
 }, "false");
@@ -649,7 +649,7 @@ masterResSlider.addEventListener('input', function()
     resSliders[i].value = this.value;
   }
 }, "false");
-masterResSlider.value = 0.5
+masterResSlider.value = 0.3
 
 const interactionSlider = document.querySelector(".interaction-slider");
 interactionSlider.addEventListener('input', function() 
@@ -711,29 +711,29 @@ const powerButton = document.querySelector(".control-power");
 
 if (powerButton)
 {
-  console.log("power button exists");
+  //console.log("power button exists");
   powerButton.addEventListener('click', function() {
   if (this.dataset.power === 'on') {
     audioContext.suspend();
     this.dataset.power = 'off';
-    console.log("switching off");
+    //console.log("switching off");
     powerButton.innerHTML = "Turn Audio On";
     powerButton.style.background = "#efefef";
   } else if (this.dataset.power === 'off') {
     audioContext.resume();
     this.dataset.power = 'on';
-    console.log("switching on");
+    //console.log("switching on");
     powerButton.innerHTML = "Turn Audio Off";
     powerButton.style.background = "#4CCF90";
 
   }
   this.setAttribute( "aria-checked", audioContext.state ? "false" : "true" );
-  console.log(audioContext.state);
+  //console.log(audioContext.state);
 }, false);
 }
 else 
 {
-	console.log("power button dunt exist yet");
+	//console.log("power button dunt exist yet");
 }
 
 function switchOn() 
@@ -750,18 +750,41 @@ masterGain.connect(analyser);
 analyser.fftSize = 4096;
 var bufferLength = analyser.frequencyBinCount;
 var bufferToUse = bufferLength/6
-console.log(bufferLength);
+//console.log(bufferLength);
 var dataArray = new Uint8Array(bufferToUse);
 
 var canvas = document.querySelector('.visualizer');
 var canvasCtx = canvas.getContext("2d");
 
 
+
+var analysers = [];
+var buffers = [];
+var dataArrays = [];
+var canvases = [];
+var canvasCtxs = [];
+for (let i=0; i<8; i++)
+{
+  analysers[i] = audioContext.createAnalyser();
+  gutterOscs[i].connect(analysers[i]);
+  analysers[i].fftSize = 4096;
+
+  buffers[i] = analysers[i].frequencyBinCount / 6.0;
+
+  dataArrays[i] = new Uint8Array(buffers[i]);
+
+  canvases[i] = document.querySelector('.visualizer'+(i+1));
+  canvasCtxs[i] = canvases[i].getContext("2d");
+  canvasCtxs[i].clearRect(0, 0, canvases[i].width, canvases[i].height);
+}
+
+
 //canvasCtx.fillStyle = 'rgb(200, 100, 50)';
 //canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-function draw() {
 
+function draw() {
+  // MASTER ANALYSER
   drawVisual = requestAnimationFrame(draw);
 
   analyser.getByteFrequencyData(dataArray);
@@ -777,14 +800,54 @@ function draw() {
     barHeight = dataArray[i]/2;
     barHeight = barHeight / 150.0;
     barHeight *= barHeight*barHeight;
-    barHeight *= 75
+    barHeight *= 55
 
     canvasCtx.fillStyle = 'rgb(50,50,'+(barHeight+50)+')';
     canvasCtx.fillRect(x, canvas.height - barHeight/2, barWidth, barHeight);
 
     x += barWidth + 1;
   }
+
+  //drawVisual1 = requestAnimationFrame(draw);
+
+
+  // INDIVIDUAL ANALYSERS
+  for (let voice=0; voice<8; voice++)
+  {
+      analysers[voice].getByteFrequencyData(dataArrays[voice]);
+
+      canvasCtxs[voice].fillStyle = 'rgb(239, 239, 239)';//  - this is #efefef?
+      canvasCtxs[voice].fillRect(0, 0, canvases[voice].width, canvases[voice].height);
+
+      barWidth = (canvases[voice].width / buffers[voice]) * 2.5;
+      barHeight;
+      x = 0;
+      for(var i = 0; i < buffers[voice]; i++) 
+      {
+        barHeight = dataArrays[voice][i]/2;
+        barHeight = barHeight / 150.0;
+        barHeight *= barHeight*barHeight;
+        barHeight *= 75
+
+        canvasCtxs[voice].fillStyle = 'rgb(50,50,'+(barHeight+50)+')';
+        canvasCtxs[voice].fillRect(x, canvases[voice].height - barHeight/2, barWidth, barHeight);
+
+        x += barWidth + 1;
+      }
+  }
+
 };
+
+
+
+
+// initialise to: minor filters
+for (let i=0; i<8; i++)
+{
+  let minorScale = [0, 2, 3, 5, 7, 8, 10, 12];
+  let note = minorScale[i] + 24;
+  gutterOscs[i].minorFilters(note);
+}
 
 draw();
 

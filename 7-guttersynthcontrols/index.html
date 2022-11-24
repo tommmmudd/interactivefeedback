@@ -6,6 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="range2dslider/jquery.range2dslider.css">
 <script src="range2dslider/jquery.range2dslider.js"></script>
+
 <style type="text/css">
 
 	input {
@@ -13,26 +14,34 @@
   		width: 500px;
 	}
 
-	.individuals {
-		float: left;
-		padding-right: 20px;
+
+	.individual-controls
+	{
+		font-size: 10pt;
+		padding-top: 20px;
+		max-width: 800px;
 	}
 	.voicecontrols {
 		float:left;
-		width: 800px;
 		padding-top: 0px;
 		padding-bottom: 20px;
+		font-size: 10pt;
 	}
 
 	.mini {
     	/*margin: .4rem;*/
-  		width: 200px;
+  		width: 150px;
+  		height: 12px;
 	}
 
 	.buttonrow {
 		float: left;
 	}
 
+	.diagram 
+	{
+		clear: left;
+	}
 	
 
 	.central {
@@ -79,9 +88,11 @@
 		<div class='container'> 	
 
 		<h1>Interacting with Feedback</h1>
-		<h2>6: Gutter Synth</h2>
+		<h2>7: Gutter Synth with all controls</h2>
 		<p>
-			8 coupled Gutter Oscillators. Each oscillator can influence all the other oscillators. Turn this aspect up or down with the slider below. The buttons can be used to either randomise the filter banks for each oscillator, or to set them to an example batch that correspond to particular notes in a minor scale.
+			8 coupled Gutter Oscillators. Each oscillator can influence all the other oscillators. Turn this aspect up or down with the slider below. The buttons can be used to either randomise the filter banks for each oscillator, or to set them to an example batch that correspond to particular notes in a minor scale.<br><br>
+
+			This version provides master controls at the top, and individual controls for each voice below.
 		</p>
 		<p>
 			For a standalone and/or Max MSP version with more control options, see the <a href="https://github.com/tommmmudd/guttersynthesis" target="_blank">Gutter Synth Github</a>.
@@ -94,6 +105,7 @@
 		<button id="onOff" class="control-power powerbutton" role="switch" aria-checked="false" data-power="off">
 			<span>Turn Audio On</span>
 		</button>
+		<br>
 		<button id="randomiseFilters" class="randomise" role="switch" aria-checked="false" data-power="off">
 			<span>Randomise Filters</span>
 		</button>
@@ -103,7 +115,7 @@
 		<button id="minorFilters" class="minor" role="switch" aria-checked="false" data-power="off">
 			<span>Minor Filters</span>
 		</button>
-
+		<br><br>
 
 		<section class="master-controls">
 			
@@ -125,7 +137,7 @@
 			<label for="volume">Gain</label>
 
 			<input type="range" id="x" class="master-damp-slider" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-			<label for="volume">Damping</label>
+			<label for="volume">Damp</label>
 			<br>
 
 			<input type="range" id="x" class="master-mod-slider" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
@@ -136,7 +148,7 @@
 			<br>
 
 			<input type="range" id="x" class="master-res-slider" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-			<label for="volume">Resonance</label>
+			<label for="volume">Q</label>
 			<br><br>
 
 			<input type="range" id="x" class="interaction-slider" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
@@ -145,352 +157,95 @@
 			<br>
 		</section>
 
-		<!-- 
-		<button id="trig" class="env-trig" role="button">
-			<span>Trigger Envelope</span>
-		</button>  
-		-->
-
-		
-		<p>
-		<input id="slider">
-	</p>
 
 
 		<canvas class="visualizer" width="500" height="35"></canvas> 
 
-		<section class="individual-controls">
+		<section id ="controls" class="individual-controls">
 
-			<div class="voicecontrols">
-				Voice 1 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider1 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider1 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
+			<script>
+				function createIndividualControls() 
+				{
+					for (let i=0; i<8; i++) 
+					{  
+						console.log("looping");
+						var outerDiv = document.createElement('div');
+						outerDiv.id = "individualOuter"+(i+1);
+						outerDiv.classList.add("voicecontrols");
+						document.getElementById('controls').appendChild(outerDiv);
+						outerDiv.innerHTML = "Voice "+(i+1)+" controls<br>"
 
-					<input type="range" id="x" class="res-slider1 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise1" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise1-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor1" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider1 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
+						var innerDiv = document.createElement('div');
+						innerDiv.id = "individualInner"+(i+1);
+						innerDiv.classList.add("individuals");
+						outerDiv.appendChild(innerDiv);
 
-					<input type="range" id="x" class="rate-slider1 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-				</div> 
-
-			</div>
+						var inputClasses = ["gain", "damp", "mod", "rate", "res"];
+						var inputNames = ["Gain", "Damp", "Mod", "Rate", "Q"]
+						for (let j=0; j<5; j++)
+						{
+							var slider = document.createElement('input');
+							slider.type = "range";
+							slider.classList.add(inputClasses[j]+"-slider"+(i+1));
+							slider.classList.add("mini");
+							slider.min = "0"; slider.max = "1"; slider.step="0.001"; slider.list="gain-vals"; 
+							innerDiv.appendChild(slider);
+							var label = document.createElement('label');
+							// label.setAttribute("for", "" = ""
+							label.innerHTML = inputNames[j];
+							innerDiv.appendChild(label);
+							innerDiv.innerHTML += "<br>";
+						}
+						var buttonClasses = ["randomise", "randomise-low", "minor"];
+						var buttonNames = ["Randomise", "Random Low", "Minor"];
+						innerDiv.innerHTML += "Filters: <br>";
+						for (let j=0; j<3; j++)
+						{
+							var button = document.createElement('button');
+							button.classList.add(buttonClasses[j]+(i+1));
+							button.setAttribute("role", "switch");
+							button.setAttribute("aria-checked", "false");
+							button.setAttribute("data-power", "off");
+							button.innerHTML = "<span>"+buttonNames[j]+"</span>";
+							innerDiv.appendChild(button);
+							if (j==1)
+							{
+								innerDiv.innerHTML += "<br>"
+							}
+						}
+						innerDiv.innerHTML += "<br><canvas class='visualizer"+(i+1)+"' width='150' height='20'></canvas>";
+					}
+				}
+				createIndividualControls();
+			</script>
 			
 
-
-			<div class="voicecontrols">
-				Voice 2 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider2 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider2 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
-
-					<input type="range" id="x" class="res-slider2 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise2" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise2-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor2" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider2 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
-
-					<input type="range" id="x" class="rate-slider2 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-					<br>
-				</div>
-			</div>
-			
-
-
-			<div class="voicecontrols">
-				Voice 3 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider3 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider3 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
-
-					<input type="range" id="x" class="res-slider3 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise3" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise3-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor3" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider3 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
-
-					<input type="range" id="x" class="rate-slider3 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-					<br>
-				</div>
-			</div>
-			
-
-
-
-			<div class="voicecontrols">
-				Voice 4 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider4 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider4 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
-
-					<input type="range" id="x" class="res-slider4 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise4" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise4-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor4" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider4 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
-
-					<input type="range" id="x" class="rate-slider4 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-					<br>
-				</div>
-			</div>
-			
-			
-			
-
-			<div class="voicecontrols">
-				Voice 5 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider5 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider5 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
-
-					<input type="range" id="x" class="res-slider5 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise5" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise5-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor5" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider5 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
-
-					<input type="range" id="x" class="rate-slider5 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-					<br>
-				</div>
-			</div>
-			
-
-
-
-			<div class="voicecontrols">
-				Voice 6 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider6 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider6 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
-
-					<input type="range" id="x" class="res-slider6 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise6" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise6-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor6" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider6 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
-
-					<input type="range" id="x" class="rate-slider6 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-					<br>
-				</div>
-			</div>
-			
-
-
-
-			<div class="voicecontrols">
-				Voice 7 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider7 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider7 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
-
-					<input type="range" id="x" class="res-slider7 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise7" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise7-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor7" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider7 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
-
-					<input type="range" id="x" class="rate-slider7 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-					<br>
-				</div>
-			</div>
-			
-
-
-
-			<div class="voicecontrols">
-				Voice 8 controls <br>
-				<div class="individuals"> 
-					<input type="range" id="x" class="gain-slider8 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Gain</label>
-					<br>
-					<input type="range" id="x" class="mod-slider8 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Mod</label>
-					<br>
-
-					<input type="range" id="x" class="res-slider8 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Resonance</label>
-					<br>
-					<div class="buttonrow">
-						<button id="randomiseFilters" class="randomise8" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters</span>
-						</button>
-						<button id="randomiseFiltersLow" class="randomise8-low" role="switch" aria-checked="false" data-power="off">
-							<span>Randomise Filters Low</span>
-						</button>
-						<button id="minorFilters" class="minor8" role="switch" aria-checked="false" data-power="off">
-							<span>Minor Filters</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<input type="range" id="x" class="damp-slider8 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Damping</label>
-					<br>
-
-					<input type="range" id="x" class="rate-slider8 mini" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
-					<label for="volume">Rate</label>
-					<br>
-				</div>
-			</div>
-			
 
 
 
 		</section>
-		<br>
-		<h2>Diagram</h2>
-		<img src="6-guttersynth.png" />
-		<!-- 
-		<section class="master-controls">
-			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="1" label="max">
-			</datalist>
-			<label for="volume">Resonance</label>
-
+		<div class="diagram">
 			<br>
-		</section>
-		-->
+			<h2>Diagram</h2>
+			<img src="6-guttersynth.png" />
+			<!-- 
+			<section class="master-controls">
+				<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="volume">Resonance</label>
+
+				<br>
+			</section>
+			-->
+		</div>
 
 
 
 	</div>
+
 <script src="gutter_synth.js"></script>
 </body>
 </html>
