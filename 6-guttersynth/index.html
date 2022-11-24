@@ -1,0 +1,148 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+<script type="text/javascript" src="range2dslider/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="range2dslider/jquery.range2dslider.css">
+<script src="range2dslider/jquery.range2dslider.js"></script>
+<style type="text/css">
+
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+
+	.central {
+		width: 90%;
+		padding: 20px;
+	}
+
+	#markerbounds {
+	  margin: auto;
+	  position: relative;
+	}
+
+	#box {
+	  margin: auto;
+	  background-color: lightsteelblue;
+	  position: absolute;
+	  border: 1px solid black;
+	}
+
+	#marker {
+	  position: relative;
+	  background-color: brown;
+	  border-radius: 100px;
+	}
+
+	#coord {
+	  font-family: serif;
+	  font-size: 14px;
+	  margin: 0px;
+	}
+</style>
+
+
+</head>
+<body>
+	<div id='content'> 
+
+		<div class='menu'> 
+			<div id="left"><a href="../5-gutterosc/index.html"><<< Previous</a></div>
+ 			<div id="right"></div>
+  			<div id="center"><a href="../index.html">Menu</a></div>
+  		</div> 
+
+		<div class='container'> 	
+
+		<h1>Interacting with Feedback</h1>
+		<h2>6: Gutter Synth</h2>
+		<p>
+			8 coupled Gutter Oscillators. Each oscillator can influence all the other oscillators. Turn this aspect up or down with the slider below. The buttons can be used to either randomise the filter banks for each oscillator, or to set them to an example batch that correspond to particular notes in a minor scale.
+		</p>
+		<p>
+			For a standalone and/or Max MSP version with more control options, see the <a href="https://github.com/tommmmudd/guttersynthesis" target="_blank">Gutter Synth Github</a>.
+		</p>
+		<p>
+			For an album made exclusively with this synth, see <a href="https://tommudd.bandcamp.com/album/gutter-synthesis" target="_blank">Gutter Synthesis on Bandcamp</a>.
+		</p>
+
+		
+		<button id="onOff" class="control-power powerbutton" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+		<button id="randomiseFilters" class="randomise" role="switch" aria-checked="false" data-power="off">
+			<span>Randomise Filters</span>
+		</button>
+		<button id="randomiseFiltersLow" class="randomise-low" role="switch" aria-checked="false" data-power="off">
+			<span>Randomise Filters Low</span>
+		</button>
+		<button id="minorFilters" class="minor" role="switch" aria-checked="false" data-power="off">
+			<span>Minor Filters</span>
+		</button>
+
+
+		<section class="master-controls">
+			<input type="range" id="x" class="interaction-slider" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
+			<datalist id="gain-vals">
+				<option value="0" label="0">
+				<option value="0.1" label="0.1">
+				<option value="0.2" label="0.2">
+				<option value="0.3" label="0.3">
+				<option value="0.4" label="0.4">
+				<option value="0.5" label="0.5">
+				<option value="0.6" label="0.6">
+				<option value="0.7" label="0.7">
+				<option value="0.8" label="0.8">
+				<option value="0.9" label="0.9">
+				<option value="1" label="1">
+			</datalist>
+
+			<label for="volume">Oscillator Interaction</label>
+
+			<br>
+			<input type="range" id="x" class="modulation-slider" min="0" max="1" value="0.0" list="gain-vals" step="0.001" data-action="x" />
+
+
+			<label for="volume">Modulation</label>
+
+			<br>
+		</section>
+
+		<!-- 
+		<button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>  
+		-->
+
+		
+		<p>
+		<input id="slider">
+	</p>
+
+
+		<canvas class="visualizer" width="500" height="35"></canvas> 
+
+		<br>
+		<h2>Diagram</h2>
+		<img src="6-guttersynth.png" />
+		<!-- 
+		<section class="master-controls">
+			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<label for="volume">Resonance</label>
+
+			<br>
+		</section>
+		-->
+
+
+
+	</div>
+<script src="gutter_synth.js"></script>
+</body>
+</html>

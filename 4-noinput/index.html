@@ -1,0 +1,278 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<style type="text/css">
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+</style>
+
+
+</head>
+<body>
+<div id='content'> 
+
+	<div class='menu'> 
+		<div id="left"><a href="../3-guitarlike/index.html"><<< Previous</a></div>
+		<div id="right"><a href="../5-gutterosc/index.html">Next >>></a></div>
+		<div id="center"><a href="../index.html">Menu</a></div>
+	</div> 
+
+	<div class='containerNIMB'>
+
+		<h1>Interacting with Feedback</h1>
+		<h2>4: No Input Mixing Desk</h2>
+		<p>
+			A digital recreation of a 4 channel feedback mixer with the channels able to feed into each other. This is a very crude approximation without the real richness of an analog mixer, but it gives a sense of what interacting with this kind of setup can feel like.
+		</p>
+
+		<button id="onOff" class="control-power powerbutton" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+		<br><br>Example presets: 
+		<button id="preset1" class="preset1" role="switch" aria-checked="false" data-power="off">
+			<span>Preset 1</span>
+		</button>
+		<button id="preset2" class="preset2" role="switch" aria-checked="false" data-power="off">
+			<span>Preset 2</span>
+		</button>
+		<button id="randomise" class="randomise" role="switch" aria-checked="false" data-power="off">
+			<span>Randomise All</span>
+		</button>
+
+		<br>
+		<br>
+
+		<div id="leftChannel"> 
+			CHANNEL 1
+			<section class="channel-strip">
+				<input type="range" id="channel1-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">High</label>
+				<br>
+				<input type="range" id="channel1-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel1-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+				<input type="range" id="channel11-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel11-send"> 1 -->  1</label>
+				<br>
+				<input type="range" id="channel12-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel12-send"> 1 -->  2</label>
+				<br>
+				<input type="range" id="channel13-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel13-send"> 1 -->  3</label>
+				<br>
+				<input type="range" id="channel14-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel14-send"> 1 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel1-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel1-gain">Gain</label>
+				<br>
+
+
+			</section>
+			<br><br>
+		</div>
+		<div id="leftChannel">
+			CHANNEL 2
+			<section class="channel-strip">
+				<input type="range" id="channel2-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel2-freq">High</label>
+
+				<br>
+				<input type="range" id="channel2-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel2-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+
+				<input type="range" id="channel21-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel21-send"> 2 -->  1</label>
+				<br>
+				<input type="range" id="channel22-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel22-send"> 2 -->  2</label>
+				<br>
+				<input type="range" id="channel23-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel23-send"> 2 -->  3</label>
+				<br>
+				<input type="range" id="channel24-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel24-send"> 2 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel2-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel2-gain">Gain</label>
+				<br>
+			</section>
+			<br><br>
+		</div>
+
+
+		<div id="leftChannel">
+			CHANNEL 3
+			<section class="channel-strip">
+				<input type="range" id="channel3-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel2-freq">High</label>
+
+				<br>
+				<input type="range" id="channel3-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel3-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+
+				<input type="range" id="channel31-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel31-send"> 3 -->  1</label>
+				<br>
+				<input type="range" id="channel32-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel32-send"> 3 -->  2</label>
+				<br>
+				<input type="range" id="channel33-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel33-send"> 3 -->  3</label>
+				<br>
+				<input type="range" id="channel34-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel34-send"> 3 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel3-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel3-gain">Gain</label>
+				<br>
+			</section>
+		</div>
+		
+		<div id="leftChannel">
+			CHANNEL 4
+			<section class="channel-strip">
+				<input type="range" id="channel4-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel2-freq">High</label>
+
+				<br>
+				<input type="range" id="channel4-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel4-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+
+				<input type="range" id="channel41-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel41-send"> 4 -->  1</label>
+				<br>
+				<input type="range" id="channel42-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel42-send"> 4 -->  2</label>
+				<br>
+				<input type="range" id="channel43-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel43-send"> 4 -->  3</label>
+				<br>
+				<input type="range" id="channel44-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel44-send"> 4 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel4-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel4-gain">Gain</label>
+				<br>
+			</section>
+
+		</div>
+
+		<div style="clear: left">
+		Noise in the system<br>
+		<input type="range" id="noise" class="control-x slider-width300" min="0" max="5" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<!-- <label for="noise">Noise in the system</label> -->
+
+		
+		<!-- <button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>   -->
+		<canvas class="visualizer" width="960" height="36"></canvas> 
+		<br>
+		<h2>Diagram</h2>
+		<img src="4-noinput.png" />
+
+		<p>
+			<br>
+		</p>
+		<form action="../5-gutterosc/index.html">
+    		<input type="submit" value="Next example >>>" class="nextbutton" />
+		</form>
+	</div>
+
+	</div>
+	
+
+
+		<!-- 
+		<section class="master-controls">
+			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<label for="volume">Resonance</label>
+
+			<br>
+		</section>
+		-->
+
+
+
+</div>
+<script src="noinput.js"></script>
+</body>
+</html>

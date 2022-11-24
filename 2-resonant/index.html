@@ -1,0 +1,132 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+<script type="text/javascript" src="range2dslider/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="range2dslider/jquery.range2dslider.css">
+<script src="range2dslider/jquery.range2dslider.js"></script>
+<style type="text/css">
+
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+
+	.central {
+		width: 90%;
+		padding: 20px;
+	}
+
+	#markerbounds {
+	  margin: auto;
+	  position: relative;
+	}
+
+	#box {
+	  margin: auto;
+	  background-color: lightsteelblue;
+	  position: absolute;
+	  border: 1px solid black;
+	}
+
+	#marker {
+	  position: relative;
+	  background-color: brown;
+	  border-radius: 100px;
+	}
+
+	#coord {
+	  font-family: serif;
+	  font-size: 14px;
+	  margin: 0px;
+	}
+</style>
+
+
+</head>
+<body>
+	<div id='content'> 
+
+		<div class='menu'> 
+			<div id="left"><a href="../1-basic/index.html"><<< Previous</a></div>
+ 			<div id="right"><a href="../3-guitarlike/index.html">Next >>></a></div>
+  			<div id="center"><a href="../index.html">Menu</a></div>
+  		</div> 
+
+
+		<div class='container'> 	
+	
+		
+		<h1>Interacting with Feedback</h1>
+		<h2>2: Coupled resonances</h2>
+		<p>
+			In this example, there are two delay lines connected together. This means that the resultant tone depends on the interaction between both delay times. The x axis controls the delay time for one delay and the y axis controls the other. 
+		</p>
+	
+
+		<br>
+		
+
+		<button id="onOff" class="control-power" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+
+
+
+		<!-- 
+		<button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>  
+		-->
+
+		
+		<p>
+		<input id="slider">
+	</p>
+
+
+		<canvas class="visualizer" width="500" height="36"></canvas> 
+
+			<p>
+			This is similar to the way feedback with a vibrating string might work: the string (delay 1) has certain resonances depending on how long it is, or where a finger is placed on a fretboard. The extra delay applied to the string (delay 2) has different resonances depending on how long the delay is, for example, how far the string is from the amplifier in a guitar-feedback example.
+		</p>
+
+		<h2>Notes</h2>
+		<p>
+			<ul>
+				<li>Try moving from the lower left to the upper right. This keeps both delay lines more or less 
+				the same and tends to give quite a simple output: the tone rises and falls.</li>
+				<li>Try moving from the upper left to the lower right. As one delay time increases, the other decreases, causing lots of pitch jumps in the resultant tone.</li>
+				<li>The mixture of the two provides a balance of fairly controllable linear interactions, and unpredictable nonlinear interactions.</li>
+			</ul>
+		</p>
+
+		<h2>Diagram</h2>
+		<img src="3-twodelays.png" />
+
+		<p>
+			<br>
+		</p>
+		<form action="../3-guitarlike/index.html">
+    		<input type="submit" value="Next example >>>" class="nextbutton" />
+		</form>
+		<!-- 
+		<section class="master-controls">
+			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<label for="volume">Resonance</label>
+
+			<br>
+		</section>
+		-->
+
+
+
+	</div>
+<script src="feedback_dsp.js"></script>
+</body>
+</html>

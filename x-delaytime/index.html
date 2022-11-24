@@ -1,0 +1,119 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+<script type="text/javascript" src="range2dslider/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="range2dslider/jquery.range2dslider.css">
+<script src="range2dslider/jquery.range2dslider.js"></script>
+<style type="text/css">
+
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+
+	.central {
+		width: 90%;
+		padding: 20px;
+	}
+
+	#markerbounds {
+	  margin: auto;
+	  position: relative;
+	}
+
+	#box {
+	  margin: auto;
+	  background-color: lightsteelblue;
+	  position: absolute;
+	  border: 1px solid black;
+	}
+
+	#marker {
+	  position: relative;
+	  background-color: brown;
+	  border-radius: 100px;
+	}
+
+	#coord {
+	  font-family: serif;
+	  font-size: 14px;
+	  margin: 0px;
+	}
+</style>
+
+
+</head>
+<body>
+	<div id='content'> 
+		<div class='container'> 	
+	
+		<a href="../1-basic/index.html"><-- Previous example</a> --- <a href="../index.html">Menu</a> --- <a href="../3-gutterosc/index.html"> Next example --></a>
+		<h1>Interacting with Feedback</h1>
+		<h2>2: Delay time and filter frequency</h2>
+		<p>
+			This slider controls a filter in the feedback loop. In this example, the response still feels relatively straightforward: if you put the slider in a given place you tend to hear a given frequency. Already there are a few interesting features however:
+
+
+		</p>
+
+		<br>
+		
+
+		<button id="onOff" class="control-power" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+
+
+
+		<!-- 
+		<button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>  
+		-->
+
+		
+		<p>
+		<input id="slider">
+	</p>
+
+
+		<canvas class="visualizer" width="500" height="36"></canvas> 
+
+		<br>
+		<p>
+			<ul>
+				<li>TBC...</li>
+			</ul>
+		</p>
+
+		<p>
+			[INSERT BLOCK DIAGRAM HERE]
+		</p>
+
+		<p>
+			<br>
+		</p>
+		<form action="../2-resonant/index.html">
+    		<input type="submit" value="Next example >>>" class="nextbutton" />
+		</form>
+		<!-- 
+		<section class="master-controls">
+			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<label for="volume">Resonance</label>
+
+			<br>
+		</section>
+		-->
+
+
+
+	</div>
+<script src="feedback_dsp.js"></script>
+</body>
+</html>

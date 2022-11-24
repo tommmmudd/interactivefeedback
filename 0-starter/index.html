@@ -1,0 +1,100 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<style type="text/css">
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+</style>
+</head>
+
+<body>
+	<div id='content'> 
+		
+		<div class='menu'> 
+			<div id="left"><a href="../index.html"><<< Previous</a></div>
+ 			<div id="right"><a href="../1-basic/index.html">Next >>></a></div>
+  			<div id="center"><a href="../index.html">Menu</a></div>
+  		</div> 
+		
+
+		<div class='container'> 
+
+		<h1>Interacting with Feedback</h1>
+		<h2>0: Delay line with feedback</h2>
+		<p>
+			This is a very simple example of a delay line with feedback. This slider controls the delay time: how long it would take for a click to be heard a second time.
+
+		</p>
+
+		<br>
+
+
+		<button id="onOff" class="control-power powerbutton" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+
+		<!-- 
+		<button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>  
+		-->
+
+		<br><br>
+		
+		<section class="master-controls">
+			<label for="volume">Frequency</label><br>
+			<input type="range" id="x" class="control-x" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+			<datalist id="gain-vals">
+				<option value="0" label="0">
+				<option value="0.1" label="0.1">
+				<option value="0.2" label="0.2">
+				<option value="0.3" label="0.3">
+				<option value="0.4" label="0.4">
+				<option value="0.5" label="0.5">
+				<option value="0.6" label="0.6">
+				<option value="0.7" label="0.7">
+				<option value="0.8" label="0.8">
+				<option value="0.9" label="0.9">
+				<option value="1" label="1">
+			</datalist>
+
+			
+
+			
+		</section>
+		<br>
+		<canvas class="visualizer" width="500" height="36"></canvas> 
+
+		<h2>Notes</h2>
+		<p>
+			<ul>
+				<li>If you move the slider to the far right, you can hear discrete echoes</li>
+				<li>If you move the slider to the left side, you hear the pitch rise: very short delay times produce higher pitches.</li>
+			</ul>
+		</p>
+		<h2>Diagram</h2>
+		<img src="0-singledelay.png" />
+		<p>
+		</p>
+		<form action="../1-basic/index.html">
+    		<input type="submit" value="Next example >>>" class="nextbutton" />
+		</form>
+		<!-- 
+		<section class="master-controls">
+			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<label for="volume">Resonance</label>
+
+			<br>
+		</section>
+		-->
+		</div>
+	</div>
+<script src="delay_line.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<style type="text/css">
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+</style>
+</head>
+
+<body>
+	<div id='content'> 
+
+		<div class='menu'> 
+			<div id="left"><a href="../0-starter/index.html"><<< Previous</a></div>
+ 			<div id="right"><a href="../2-resonant/index.html">Next >>></a></div>
+  			<div id="center"><a href="../index.html">Menu</a></div>
+  		</div> 
+
+		<div class='container'> 	
+	
+		
+		<h1>Interacting with Feedback</h1>
+		<h2>1: Single slider exploration</h2>
+		<p>
+			This slider controls a filter in the feedback loop. In this example, the response still feels relatively straightforward: if you put the slider in a given place you tend to hear a given frequency. Already there are a few interesting features however:
+
+
+		</p>
+
+		<br>
+
+
+		<button id="onOff" class="control-power" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+
+		<!-- 
+		<button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>  
+		-->
+
+		<br><br>
+		
+		<section class="master-controls">
+			<label for="volume">Filter Frequency</label><br>
+			<input type="range" id="x" class="control-x" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+			<datalist id="gain-vals">
+				<option value="0" label="0">
+				<option value="0.1" label="0.1">
+				<option value="0.2" label="0.2">
+				<option value="0.3" label="0.3">
+				<option value="0.4" label="0.4">
+				<option value="0.5" label="0.5">
+				<option value="0.6" label="0.6">
+				<option value="0.7" label="0.7">
+				<option value="0.8" label="0.8">
+				<option value="0.9" label="0.9">
+				<option value="1" label="1">
+			</datalist>
+
+			
+
+			
+		</section>
+		<br>
+		<canvas class="visualizer" width="500" height="36"></canvas> 
+
+		<h2>Notes</h2>
+		<p>
+			<ul>
+				<li>Although the filter is varied continuously, the tone latches on to particular regularly spaced tones. These are in fact harmonics relative to the delay time in the feedback loop.</li>
+				<li>The tone may take a while to settle to a particular harmonic, sometimes as long as 5-10 seconds. See if you can find zones where even after you leave the slider in one place, the sound evolves continues to change.</li>
+				<li>It is possible for a particular slider position to cause different sounds at different points in time. You can try this out by approaching the centre point slowly from either above or below and listening to the difference. This property is called <strong> HYSTERESIS </strong> and is very important for feedback interactions.</li>
+			</ul>
+		</p>
+
+		<h2>Diagram</h2>
+		<img src="1-filterdelay.png" />
+
+		<p>
+			<br>
+		</p>
+		<form action="../2-resonant/index.html">
+    		<input type="submit" value="Next example >>>" class="nextbutton" />
+		</form>
+
+
+	</div>
+<script src="feedback_alternatebiquad.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+<script type="text/javascript" src="range2dslider/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="range2dslider/jquery.range2dslider.css">
+<script src="range2dslider/jquery.range2dslider.js"></script>
+<style type="text/css">
+
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+
+	.central {
+		width: 90%;
+		padding: 20px;
+	}
+
+	#markerbounds {
+	  margin: auto;
+	  position: relative;
+	}
+
+	#box {
+	  margin: auto;
+	  background-color: lightsteelblue;
+	  position: absolute;
+	  border: 1px solid black;
+	}
+
+	#marker {
+	  position: relative;
+	  background-color: brown;
+	  border-radius: 100px;
+	}
+
+	#coord {
+	  font-family: serif;
+	  font-size: 14px;
+	  margin: 0px;
+	}
+</style>
+
+
+</head>
+<body>
+	<div id='content'> 
+
+		<div class='menu'> 
+			<div id="left"><a href="../2-resonant/index.html"><<< Previous</a></div>
+ 			<div id="right"><a href="../4-noinput/index.html">Next >>></a></div>
+  			<div id="center"><a href="../index.html">Menu</a></div>
+  		</div> 
+
+		<div class='container'> 	
+	
+		<h1>Interacting with Feedback</h1>
+		<h2>3: Guitar/Amplifier feedback</h2>
+		<p>
+			This example uses higher gain distortion and reverb to create something a little closer to electric guitar feedback. The reverb is in the feedback loop, and so adds an extra layer of complexity.
+		</p>
+		<p>
+			Using the <a href="http://reverbjs.org/">reverbjs.org</a> reverb.
+		</p>
+	
+
+		<br>
+		
+
+		<button id="onOff" class="control-power" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+
+
+
+		<!-- 
+		<button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>  
+		-->
+
+		
+		<p>
+		<input id="slider">
+	</p>
+
+
+		<canvas class="visualizer" width="500" height="36"></canvas> 
+
+		<p>
+			You might find that certain tones really start to stick and can be quite hard to dislodge. This is an excellent example of hysteresis, and the whole 2D space sometimes only seems to make minor modifications to the tone. You should still be able to find a way to change to a different note however. Try rapid movements, or leaving it in one place to allow something else to develop, or combinations of these things.
+		</p>
+
+
+		<h2>Diagram</h2>
+		<img src="x-guitarlike.png" />
+
+		<p>
+			<br>
+		</p>
+		<form action="../4-noinput/index.html">
+    		<input type="submit" value="Next example >>>" class="nextbutton" />
+		</form>
+		<!-- 
+		<section class="master-controls">
+			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<label for="volume">Resonance</label>
+
+			<br>
+		</section>
+		-->
+
+
+
+	</div>
+<script src="http://reverbjs.org/reverb.js"></script>
+<script src="guitarlike.js"></script>
+</body>
+</html>
