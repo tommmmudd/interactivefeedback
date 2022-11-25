@@ -42,6 +42,15 @@
 	{
 		clear: left;
 	}
+
+	.numBoxFloat
+	{
+		width: 70px;
+	}
+	.numBoxInt
+	{
+		width: 40px;
+	}
 	
 
 	.central {
@@ -72,6 +81,11 @@
 	  font-size: 14px;
 	  margin: 0px;
 	}
+
+	.filterBox	{		
+		font-size: 10pt;
+	}
+
 </style>
 
 
@@ -85,7 +99,7 @@
   			<div id="center"><a href="../index.html">Menu</a></div>
   		</div> 
 
-		<div class='container'> 	
+		<div class='container' id="topcontainer"> 	
 
 		<h1>Interacting with Feedback</h1>
 		<h2>7: Gutter Synth with all controls</h2>
@@ -106,18 +120,10 @@
 			<span>Turn Audio On</span>
 		</button>
 		<br>
-		<button id="randomiseFilters" class="randomise" role="switch" aria-checked="false" data-power="off">
-			<span>Randomise Filters</span>
-		</button>
-		<button id="randomiseFiltersLow" class="randomise-low" role="switch" aria-checked="false" data-power="off">
-			<span>Randomise Filters Low</span>
-		</button>
-		<button id="minorFilters" class="minor" role="switch" aria-checked="false" data-power="off">
-			<span>Minor Filters</span>
-		</button>
-		<br><br>
+		
 
 		<section class="master-controls">
+			<h4>Controls for all voices</h4>
 			
 			<datalist id="gain-vals">
 				<option value="0" label="0">
@@ -155,13 +161,54 @@
 			<label for="volume">Oscillator Interaction</label>
 
 			<br>
+			<button id="randomiseFilters" class="randomise" role="switch" aria-checked="false" data-power="off">
+			<span>Randomise All Filters</span>
+		</button>
+		<button id="randomiseFiltersLow" class="randomise-low" role="switch" aria-checked="false" data-power="off">
+			<span>Randomise All Filters Low</span>
+		</button>
+		<button id="minorFilters" class="minor" role="switch" aria-checked="false" data-power="off">
+			<span>Set Filters to Scale</span>
+		</button>
+		<br><br>
 		</section>
-
-
-
 		<canvas class="visualizer" width="500" height="35"></canvas> 
 
+		
+		<div id="filterBox" class="filterBox">
+			<h4>Set to harmonics of a given frequency </h4>
+			 <input type="number" id="base-freq" name="base_freq" min="2" max="5000" step="0.001" class="numBoxFloat" value="110"> Base Frequency (Hz)<br>
+       		<input type="number" id="harmonics" name="harmonics"  min="1" max="24" class="numBoxInt" value="4">
+       		 Number of Harmonics<br>
+       		
+	       <script>
+	       		function createFilterButtons() 
+				{
+					for (let i=0; i<8; i++) 
+					{  
+						parent = document.getElementById('filterBox');
+						var button = document.createElement('button');
+						button.classList.add("applyFilters"+(i+1));
+						//button.classList.add("filterButton");
+						button.setAttribute("role", "switch");
+						button.setAttribute("aria-checked", "false");
+						button.setAttribute("data-power", "off");
+						button.innerHTML += "<span> "+(i+1)+" </span>"
+						parent.appendChild(button);
+						
+					}
+				}
+				createFilterButtons();
+			</script>
+			<button id="applyFiltersAll" class="filterButton" role="switch" aria-checked="false" data-power="off"> <span>All</span> </button> - Apply filters to a voice
+		<p>Set the base frequency and number of harmonics, then apply to one or more filters</p>
+		</div>
+       
+
+		
+
 		<section id ="controls" class="individual-controls">
+			<h4>Controls for individual voices</h4>
 
 			<script>
 				function createIndividualControls() 

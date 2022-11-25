@@ -265,6 +265,11 @@ class GutterOsc
     }
   }
 
+  setFilterCount(newFilterCount)
+  {
+    this.filterCount = newFilterCount;
+  }
+
   randomiseFilters()
   {
     this.filterCount = 24;
@@ -536,6 +541,10 @@ let randLowButtons = [];
 let minorButtons = [];
 let minorScale = [0, 2, 3, 5, 7, 8, 10, 12];
 
+let filterButtons = [];
+frequencyBox = document.getElementById("base-freq");
+harmonicsBox = document.getElementById("harmonics");
+
 for (let i=0; i<8; i++)
 {
   gainSliders[i] = document.querySelector(".gain-slider"+(i+1));
@@ -590,6 +599,24 @@ for (let i=0; i<8; i++)
       gutterOscs[i].minorFilters(note);
   }
 
+
+  filterButtons[i] = document.querySelector(".applyFilters"+(i+1));
+  filterButtons[i].onmousedown = function() 
+  {
+      gutterOscs[i].setFilterCount(harmonicsBox.value);
+      gutterOscs[i].setFreq(frequencyBox.value);
+  }
+
+}
+
+filterButtonAll = document.getElementById("applyFiltersAll");
+filterButtonAll.onmousedown = function()
+{
+  for (let i=0; i<8; i++)
+  {
+      gutterOscs[i].setFilterCount(harmonicsBox.value);
+      gutterOscs[i].setFreq(frequencyBox.value);
+  }
 }
 
 
