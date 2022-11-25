@@ -17,8 +17,7 @@ Or you can access each individual demo with the following links:
 
 ## Further reading:
 For more on this research, see:
-[The Role of Nonlinear Dynamics in Musicians' Interactions with Digital and Acoustic Musical Instruments](https://muse.jhu.edu/pub/6/article/773081)
-Tom Mudd, Simon Holland and Paul Mulholland. Computer Music Journal. The MIT Press Vol 43/4, Winter 2019. pp. 25-40
+[The Role of Nonlinear Dynamics in Musicians' Interactions with Digital and Acoustic Musical Instruments](https://muse.jhu.edu/pub/6/article/773081). Tom Mudd, Simon Holland and Paul Mulholland. Computer Music Journal. The MIT Press Vol 43/4, Winter 2019. pp. 25-40
 (or contact me directly: tom dot mudd at ed dot ac dot uk)
 
 See also the [Feedback Musicianship Network](https://feedback-musicianship.pubpub.org/)
