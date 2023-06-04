@@ -1,0 +1,498 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../resources/fb.css" />
+<style type="text/css">
+	input {
+    	/*margin: .4rem;*/
+  		width: 500px;
+	}
+
+	.knob {
+	  display: flex;
+	  position: relative;
+	}
+	.knob .ticks {
+	  position: absolute;
+	}
+	.knob .ticks .tick {
+	  position: absolute;
+	  background: black;
+	  box-shadow: inset 0 0 0 0 black;
+	  width: 3px;
+	  transition: box-shadow 0.5s;
+	}
+	.knob .ticks .tick.active {
+	  box-shadow: inset 0 0 5px 2px #509eec, 0 0 0 1px #369;
+	}
+	.knob.outer {
+	  border-radius: 50%;
+	  border: 1px solid #222;
+	  border-bottom: 5px solid #222;
+	  background-image: radial-gradient(100% 70%, #666 6%, #333 90%);
+	  box-shadow: 0 5px 15px 2px black, 0 0 5px 3px black, 0 0 0 12px #444;
+	}
+	.knob.inner {
+	  border-radius: 50%;
+	}
+	.knob.inner .grip {
+	  position: absolute;
+	  width: 5%;
+	  height: 5%;
+	  bottom: 2%;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  border-radius: 50%;
+	  background: #509eec;
+	  box-shadow: 0 0 3px 1px black;
+	}
+</style>
+
+
+
+</head>
+<body>
+
+	<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/16.2.0/umd/react.development.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.2.0/umd/react-dom.development.js'></script>
+      <script id="rendered-js" >
+function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}class Knob extends React.Component {
+  constructor(props) {
+    super(props);_defineProperty(this, "startDrag",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    e => {
+      e.preventDefault();
+      const knob = e.target.getBoundingClientRect();
+      const pts = {
+        x: knob.left + knob.width / 2,
+        y: knob.top + knob.height / 2 };
+
+      const moveHandler = e => {
+        this.currentDeg = this.getDeg(e.clientX, e.clientY, pts);
+        if (this.currentDeg === this.startAngle) this.currentDeg--;
+        let newValue = Math.floor(
+        this.convertRange(
+        this.startAngle,
+        this.endAngle,
+        this.props.min,
+        this.props.max,
+        this.currentDeg));
+
+
+        this.setState({ deg: this.currentDeg });
+        this.props.onChange(newValue);
+      };
+      document.addEventListener("mousemove", moveHandler);
+      document.addEventListener("mouseup", e => {
+        document.removeEventListener("mousemove", moveHandler);
+      });
+    });_defineProperty(this, "getDeg",
+
+    (cX, cY, pts) => {
+      const x = cX - pts.x;
+      const y = cY - pts.y;
+      let deg = Math.atan(y / x) * 180 / Math.PI;
+      if (x < 0 && y >= 0 || x < 0 && y < 0) {
+        deg += 90;
+      } else {
+        deg += 270;
+      }
+      let finalDeg = Math.min(Math.max(this.startAngle, deg), this.endAngle);
+      return finalDeg;
+    });_defineProperty(this, "convertRange",
+
+    (oldMin, oldMax, newMin, newMax, oldValue) => {
+      return (oldValue - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
+    });_defineProperty(this, "renderTicks",
+
+    () => {
+      let ticks = [];
+      const incr = this.fullAngle / this.props.numTicks;
+      const size = this.margin + this.props.size / 2;
+      for (let deg = this.startAngle; deg <= this.endAngle; deg += incr) {if (window.CP.shouldStopExecution(1)) break;if (window.CP.shouldStopExecution(0)) break;
+        const tick = {
+          deg: deg,
+          tickStyle: {
+            height: size + 10,
+            left: size - 1,
+            top: size + 2,
+            transform: "rotate(" + deg + "deg)",
+            transformOrigin: "top" } };
+
+
+        ticks.push(tick);
+      }window.CP.exitedLoop(1);window.CP.exitedLoop(0);
+      return ticks;
+    });_defineProperty(this, "dcpy",
+
+    o => {
+      return JSON.parse(JSON.stringify(o));
+    });this.fullAngle = props.degrees;this.startAngle = (360 - props.degrees) / 2;this.endAngle = this.startAngle + props.degrees;this.margin = props.size * 0.15;this.currentDeg = Math.floor(this.convertRange(props.min, props.max, this.startAngle, this.endAngle, props.value));this.state = { deg: this.currentDeg };}
+
+  render() {
+    let kStyle = {
+      width: this.props.size,
+      height: this.props.size };
+
+    let iStyle = this.dcpy(kStyle);
+    let oStyle = this.dcpy(kStyle);
+    oStyle.margin = this.margin;
+    if (this.props.color) {
+      oStyle.backgroundImage =
+      "radial-gradient(100% 70%,hsl(210, " +
+      this.currentDeg +
+      "%, " +
+      this.currentDeg / 5 +
+      "%),hsl(" +
+      Math.random() * 100 +
+      ",20%," +
+      this.currentDeg / 36 +
+      "%))";
+    }
+    iStyle.transform = "rotate(" + this.state.deg + "deg)";
+
+    return /*#__PURE__*/(
+      React.createElement("div", { className: "knob", style: kStyle }, /*#__PURE__*/
+      React.createElement("div", { className: "ticks" },
+      this.props.numTicks ?
+      this.renderTicks().map((tick, i) => /*#__PURE__*/
+      React.createElement("div", {
+        key: i,
+        className:
+        "tick" + (tick.deg <= this.currentDeg ? " active" : ""),
+
+        style: tick.tickStyle })) :
+
+
+      null), /*#__PURE__*/
+
+      React.createElement("div", { className: "knob outer", style: oStyle, onMouseDown: this.startDrag }, /*#__PURE__*/
+      React.createElement("div", { className: "knob inner", style: iStyle }, /*#__PURE__*/
+      React.createElement("div", { className: "grip" })))));
+
+
+
+
+  }}
+
+Knob.defaultProps = {
+  size: 150,
+  min: 10,
+  max: 30,
+  numTicks: 0,
+  degrees: 270,
+  value: 0 };
+
+
+class App extends React.Component {
+  render() {
+    return /*#__PURE__*/(
+      React.createElement("div", { className: "App" }, /*#__PURE__*/
+      React.createElement(Knob, {
+        size: 100,
+        numTicks: 25,
+        degrees: 260,
+        min: 1,
+        max: 100,
+        value: 30,
+        color: true }), /*#__PURE__*/
+
+
+      React.createElement(Knob, {
+        numTicks: 125,
+        degrees: 180,
+        min: 1,
+        max: 100,
+        value: 0 })));
+
+
+
+  }}
+
+
+// ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.querySelector("body"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementsByName("chan1"));
+//# sourceURL=pen.js
+    </script>
+
+<div id='content'> 
+
+	<div class='menu'> 
+		<div id="left"><a href="../3-guitarlike/index.html"><<< Previous</a></div>
+		<div id="right"><a href="../5-gutterosc/index.html">Next >>></a></div>
+		<div id="center"><a href="../index.html">Menu</a></div>
+	</div> 
+
+	<div class='containerNIMB'>
+
+		<h1>Interacting with Feedback</h1>
+		<h2>4: No Input Mixing Desk</h2>
+		<p>
+			A digital recreation of a 4 channel feedback mixer with the channels able to feed into each other. This is a very crude approximation without the real richness of an analog mixer, but it gives a sense of what interacting with this kind of setup can feel like.
+		</p>
+
+		<button id="onOff" class="control-power powerbutton" role="switch" aria-checked="false" data-power="off">
+			<span>Turn Audio On</span>
+		</button>
+		<br><br>Example presets: 
+		<button id="preset1" class="preset1" role="switch" aria-checked="false" data-power="off">
+			<span>Preset 1</span>
+		</button>
+		<button id="preset2" class="preset2" role="switch" aria-checked="false" data-power="off">
+			<span>Preset 2</span>
+		</button>
+		<button id="randomise" class="randomise" role="switch" aria-checked="false" data-power="off">
+			<span>Randomise All</span>
+		</button>
+
+		<br>
+		<br>
+
+		<div id="leftChannel" name="chan1"> 
+			CHANNEL 1
+			<section class="channel-strip">
+				<input type="range" id="channel1-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">High</label>
+				<br>
+				<input type="range" id="channel1-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel1-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+				<input type="range" id="channel11-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel11-send"> 1 -->  1</label>
+				<br>
+				<input type="range" id="channel12-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel12-send"> 1 -->  2</label>
+				<br>
+				<input type="range" id="channel13-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel13-send"> 1 -->  3</label>
+				<br>
+				<input type="range" id="channel14-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel14-send"> 1 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel1-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel1-gain">Gain</label>
+				<br>
+
+
+			</section>
+			<br><br>
+		</div>
+		<div id="leftChannel">
+			CHANNEL 2
+			<section class="channel-strip">
+				<input type="range" id="channel2-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel2-freq">High</label>
+
+				<br>
+				<input type="range" id="channel2-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel2-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+
+				<input type="range" id="channel21-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel21-send"> 2 -->  1</label>
+				<br>
+				<input type="range" id="channel22-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel22-send"> 2 -->  2</label>
+				<br>
+				<input type="range" id="channel23-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel23-send"> 2 -->  3</label>
+				<br>
+				<input type="range" id="channel24-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel24-send"> 2 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel2-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel2-gain">Gain</label>
+				<br>
+			</section>
+			<br><br>
+		</div>
+
+
+		<div id="leftChannel">
+			CHANNEL 3
+			<section class="channel-strip">
+				<input type="range" id="channel3-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel2-freq">High</label>
+
+				<br>
+				<input type="range" id="channel3-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel3-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+
+				<input type="range" id="channel31-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel31-send"> 3 -->  1</label>
+				<br>
+				<input type="range" id="channel32-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel32-send"> 3 -->  2</label>
+				<br>
+				<input type="range" id="channel33-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel33-send"> 3 -->  3</label>
+				<br>
+				<input type="range" id="channel34-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel34-send"> 3 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel3-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel3-gain">Gain</label>
+				<br>
+			</section>
+		</div>
+		
+		<div id="leftChannel">
+			CHANNEL 4
+			<section class="channel-strip">
+				<input type="range" id="channel4-freq1" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel2-freq">High</label>
+
+				<br>
+				<input type="range" id="channel4-freq2" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Mid</label>
+				<br>
+				<input type="range" id="channel4-freq3" class="control-x slider-width300" min="0" max="1" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+				<datalist id="gain-vals">
+					<option value="0" label="min">
+					<option value="1" label="max">
+				</datalist>
+				<label for="channel1-freq">Low</label>
+				<br>
+
+				<input type="range" id="channel41-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel41-send"> 4 -->  1</label>
+				<br>
+				<input type="range" id="channel42-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel42-send"> 4 -->  2</label>
+				<br>
+				<input type="range" id="channel43-send" class="control-x slider-width300" min="0" max="1" value="0" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel43-send"> 4 -->  3</label>
+				<br>
+				<input type="range" id="channel44-send" class="control-x slider-width300" min="0" max="1" value="0.9" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel44-send"> 4 -->  4</label>
+				<br>
+				<br>
+				<input type="range" id="channel4-gain" class="control-x slider-width300" min="0" max="1" value="0.2" list="gain-vals" step="0.001" data-action="x" />
+				<label for="channel4-gain">Gain</label>
+				<br>
+			</section>
+
+		</div>
+
+		<div style="clear: left">
+		Noise in the system<br>
+		<input type="range" id="noise" class="control-x slider-width300" min="0" max="5" value="0.5" list="gain-vals" step="0.001" data-action="x" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<!-- <label for="noise">Noise in the system</label> -->
+
+		
+		<!-- <button id="trig" class="env-trig" role="button">
+			<span>Trigger Envelope</span>
+		</button>   -->
+		<canvas class="visualizer" width="960" height="36"></canvas> 
+		<br>
+		<h2>Diagram</h2>
+		<img src="4-noinput.png" />
+
+		<p>
+			<br>
+		</p>
+		<form action="../5-gutterosc/index.html">
+    		<input type="submit" value="Next example >>>" class="nextbutton" />
+		</form>
+	</div>
+
+	</div>
+	
+
+
+		<!-- 
+		<section class="master-controls">
+			<input type="range" id="q" class="control-q" min="0" max="1" value="0.5" list="gain-vals" step="0.005" data-action="q" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="1" label="max">
+			</datalist>
+			<label for="volume">Resonance</label>
+
+			<br>
+		</section>
+		-->
+
+
+
+</div>
+<script src="noinput.js"></script>
+</body>
+</html>
