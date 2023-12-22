@@ -49,19 +49,28 @@
 	<div id='content'> 
 
 		<div class='menu'> 
-			<div id="left"><a href="../1-basic/index.html"><<< Previous</a></div>
- 			<div id="right"><a href="../3-guitarlike/index.html">Next >>></a></div>
+			<div id="left"><a href="../3-guitarlike/index.html"><<< Previous</a></div>
+ 			<div id="right"><a href="../4-noinput/index.html">Next >>></a></div>
   			<div id="center"><a href="../index.html">Menu</a></div>
   		</div> 
 
-
 		<div class='container'> 	
 	
-		
 		<h1>Interacting with Feedback</h1>
-		<h2>Coupled resonances</h2>
+		<h2>Jaap Vink-style Ring Modulated feedback</h2>
 		<p>
-			In this example, there are two delay lines connected together. This means that the resultant tone depends on the interaction between both delay times. The x axis controls the delay time for one delay and the y axis controls the other. 
+			My interpretation of the kind of ring mod feedback used by Jaap Vink. Based on <a href="https://www.youtube.com/watch?v=X_Bcr_HS9XM" target="_blank">this really helpful video from the Institue of Sonology</a>.
+
+		</p>
+		<!-- <img src="vink.png" width="500" /> -->
+		<p>
+			Using the <a href="http://reverbjs.org/">reverbjs.org</a> reverb.
+
+
+		</p>
+
+		<p>
+
 		</p>
 	
 
@@ -71,6 +80,7 @@
 		<button id="onOff" class="control-power" role="switch" aria-checked="false" data-power="off">
 			<span>Turn Audio On</span>
 		</button>
+		<p>The x-axis controls the rate of the modulating oscillator. <br>The y-axis is the delay time for the feedback loop.</p>
 
 
 
@@ -88,27 +98,19 @@
 
 		<canvas class="visualizer" width="500" height="36"></canvas> 
 
-			<p>
-			This is similar to the way feedback with a vibrating string might work: the string (delay 1) has certain resonances depending on how long it is, or where a finger is placed on a fretboard. The extra delay applied to the string (delay 2) has different resonances depending on how long the delay is, for example, how far the string is from the amplifier in a guitar-feedback example.
+		<p>
+
+			
 		</p>
 
-		<h2>Notes</h2>
-		<p>
-			<ul>
-				<li>Try moving from the lower left to the upper right. This keeps both delay lines more or less 
-				the same and tends to give quite a simple output: the tone rises and falls.</li>
-				<li>Try moving from the upper left to the lower right. As one delay time increases, the other decreases, causing lots of pitch jumps in the resultant tone.</li>
-				<li>The mixture of the two provides a balance of fairly controllable linear interactions, and unpredictable nonlinear interactions.</li>
-			</ul>
-		</p>
 
 		<h2>Diagram</h2>
-		<img src="3-twodelays.png" />
+		<img src="vink_diagram.png" />
 
 		<p>
 			<br>
 		</p>
-		<form action="../3-guitarlike/index.html">
+		<form action="../4-noinput/index.html">
     		<input type="submit" value="Next example >>>" class="nextbutton" />
 		</form>
 		<!-- 
@@ -127,6 +129,7 @@
 
 
 	</div>
-<script src="feedback_dsp.js"></script>
+<script src="http://reverbjs.org/reverb.js"></script>
+<script src="vink.js"></script>
 </body>
 </html>
