@@ -15,6 +15,7 @@ Or you can access each individual demo with the following links:
 - [Gutter Oscillator](http://tommudd.co.uk/feedback/5-gutterosc)
 - [Gutter Synth (Simplified)](http://tommudd.co.uk/feedback/6-guttersynth)
 - [Gutter Synth (Full Control)](http://tommudd.co.uk/feedback/7-guttersynthcontrols/)
+- [Feedback Network](https://tommudd.co.uk/feedback/feedbackweb/)
 
 ## Further reading:
 For more on this research, see:
